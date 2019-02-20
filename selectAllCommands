@@ -1,0 +1,7 @@
+use mydb;
+
+select * from BOOK;
+select * from BOOK_AUTHORS;
+select * from BOOK_LOANS;
+select * from BORROWER;
+select * from FINES;
