@@ -1,0 +1,87 @@
+-- View Definitions:
+
+
+CREATE OR REPLACE VIEW dummy AS
+    SELECT 
+        t1.isbn AS ISBN,
+        t1.title AS TITLE,
+        t3.NAME AS AUTHOR_NAME
+    FROM
+        book t1
+            LEFT JOIN
+        book_authors t2 ON t1.ISBN = t2.ISBN
+            LEFT JOIN
+        authors t3 ON t2.AUTHOR_ID = t3.AUTHOR_ID;
+        
+CREATE or replace view dummy2 as
+select isbn, title, group_concat(AUTHOR_NAME) as author_name from dummy group by ISBN, TITLE;
+
+CREATE OR REPLACE VIEW searchview AS
+    SELECT 
+        isbn,
+        title,
+        author_name,
+        (CASE
+            WHEN
+                ((SELECT 
+                        COUNT(*)
+                    FROM
+                        book_loans
+                    WHERE
+                        book_loans.isbn = dummy2.isbn) = 1)
+            THEN
+                'NO'
+            ELSE 'YES'
+        END) AS isavailable
+    FROM
+        dummy2;
+
+
+create or replace view searchview as
+select isbn, title, author_name, (case when (select count(*) from dummy2 join borrower on dummy2.isbn = borrower.isbn;
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+select count(*) from dummy2;
+
+
+
+select * from searchview;
+
+create or replace view searchview as
+select isbn, title, author_name, (case when (select count(*) from dummy2 join borrower on dummy2.isbn = borrower.isbn;
+-- create or replace view dummy3 as
+-- select isbn, title, author_name, bname from dummy2 join borrower on title
+
+
+
+select rowID, book.* from book;
+
+select * from dummy as u 
+where isbn like '%brain%' OR title like '%brain%' OR author_name like '%brain%';
+
+describe v1;
+select * from v1;
+select isbn, title, group_concat(AUTHOR_NAME) from v1 group by isbn, title;
+select count(*) from authors;
+select count(*) from book_authors;
+select author_id from book_authors where author_id not in (select author_id from authors);
+select author_id from authors where author_id not in (select AUTHOR_ID from book_authors);
+
+select count(distinct(ISBN)) from v1;
+select * from authors where name = 'ZORA NEALE HURSTON';
+select * from book_authors where AUTHOR_ID = '14077';
+select * from v1;
+select count(*) from v1 where AUTHOR_NAME = null;
+select count(*) from v1;
+select * from v1 where c3 = null;
+select count(distinct(c1)) from v1;
+select * from v1 where c1 = '0007101953';
+
+select isbn from book where isbn not in (select isbn from book_authors);
+
+select t1.ISBN as c1 from book t1 where t1.ISBN = 'asdas';
